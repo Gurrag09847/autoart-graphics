@@ -1,7 +1,7 @@
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
-import { Image } from "types"
-import { BASE_PRICE, IMAGE_PRICE } from "./constants"
+import type { Image } from "types"
+import { IMAGE_PRICE } from "./constants"
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
