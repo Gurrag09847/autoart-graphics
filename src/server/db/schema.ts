@@ -1,17 +1,12 @@
 // Example model schema from the Drizzle docs
 // https://orm.drizzle.team/docs/sql-schema-declaration
 
-import { sql } from "drizzle-orm";
 import {
-  index,
-  integer,
-  json,
+  decimal,
   jsonb,
   pgTableCreator,
-  serial,
   text,
-  timestamp,
-  varchar,
+  timestamp
 } from "drizzle-orm/pg-core";
 import { Image } from "types";
 
@@ -31,9 +26,14 @@ export const orders = createTable(
     phone_number: text("phone_number"),
     title: text("title").notNull(),
     extra_details: text("details"),
-    images: jsonb("images").$type<Image[]>(),
+    images: jsonb("images").$type<Image[]>().default([]),
     background: text("background").default("white"),
-    text_color: text("text_color").default("black")
+    text_color: text("text_color").default("black"),
+    created_at: timestamp("created_at").defaultNow(),
+    price: decimal("price", {
+      precision: 12,
+      scale: 2,
+    }),
   }
 )
 
