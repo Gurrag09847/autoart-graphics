@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <main className="">
       {/* Header Section */}
-      <img src="/images/poster69.jpg" className="aspect-video h-80 w-full object-cover" />
+      {/*<img src="/images/poster69.jpg" className="aspect-video h-80 w-full object-cover" />*/}
       <div className="flex flex-col items-center justify-center w-full min-h-screen py-10 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl w-full text-center mb-10">
         <h1 className="text-4xl sm:text-5xl font-bold mb-6 grid"><span>Välkommen till</span> <span>AutoArt Graphics</span></h1>
