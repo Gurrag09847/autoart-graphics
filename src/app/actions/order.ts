@@ -16,7 +16,7 @@ export async function CreateOrder(values: z.infer<typeof orderSchema>, images: I
     const price = calcImagePrice(images) + BASE_PRICE
 
     const newOrder = await db.insert(orders).values({
-        id: "createId()",
+        id: createId(),
         email: values.email,
         title: values.title,
         background: values.background,
