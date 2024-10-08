@@ -1,6 +1,7 @@
 // Example model schema from the Drizzle docs
 // https://orm.drizzle.team/docs/sql-schema-declaration
 
+import { InferSelectModel } from "drizzle-orm";
 import {
   decimal,
   jsonb,
@@ -52,19 +53,4 @@ export const users = createTable(
   }
 )
 
-// export const posts = createTable(
-//   "post",
-//   {
-//     id: serial("id").primaryKey(),
-//     name: varchar("name", { length: 256 }),
-//     createdAt: timestamp("created_at", { withTimezone: true })
-//       .default(sql`CURRENT_TIMESTAMP`)
-//       .notNull(),
-//     updatedAt: timestamp("updated_at", { withTimezone: true }).$onUpdate(
-//       () => new Date()
-//     ),
-//   },
-//   (example) => ({
-//     nameIndex: index("name_idx").on(example.name),
-//   })
-// );
+export type Order = InferSelectModel<typeof orders>

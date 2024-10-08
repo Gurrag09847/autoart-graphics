@@ -6,9 +6,10 @@
  * TL;DR - This is where all the tRPC server stuff is created and plugged in. The pieces you will
  * need to use are documented accordingly near the end.
  */
-import { initTRPC } from "@trpc/server";
+import { initTRPC, TRPCError } from "@trpc/server";
 import superjson from "superjson";
 import { ZodError } from "zod";
+import { auth } from "~/auth";
 
 import { db } from "~/server/db";
 
@@ -104,3 +105,24 @@ const timingMiddleware = t.middleware(async ({ next, path }) => {
  * are logged in.
  */
 export const publicProcedure = t.procedure.use(timingMiddleware);
+
+const middleware = t.middleware;
+
+const isAuthAdmin = middleware(async (opts) => {
+  const session = await auth();
+
+  if (session?.user.role !== "admin") {
+    throw new TRPCError({ code: "UNAUTHORIZED", message: "Du måste vara en admin för att utföra denna aktion" });
+  }
+
+  const user = session.user;
+
+  return opts.next({
+    ctx: {
+      userId: user.id,
+      user,
+    },
+  });
+});
+
+export const protectedAdminProcedure = t.procedure.use(isAuthAdmin);

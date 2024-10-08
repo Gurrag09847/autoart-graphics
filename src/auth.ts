@@ -66,16 +66,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     })
   ],
   callbacks: {
-    session({ session, token, user }) {
-      const u = user as unknown as any
-      console.log(token)
-      return {
-        ...session,
-        user: {
-          ...session.user,
-          role: token.role,
-        },
-      }
-    }
+    async jwt({ token, user }) {
+      // @ts-expect-error role does exist
+      if (user) token.role = user.role;
+      return token;
+    },
+    async session({ session, token }) {
+      if (session?.user) session.user.role = token.role as "admin" | "user";
+      return session;
+    },
   }
 })
