@@ -36,7 +36,7 @@ export default function Home() {
         </h4>
         <ul className="flex flex-wrap justify-center gap-6">
           {posters.map((poster, i) => (
-            <img  className={`w-56 rounded-xl shadow-lg border transition-transform ${
+            <img key={i}  className={`w-56 rounded-xl shadow-lg border transition-transform ${
               i % 4 === 0
                 ? "hover:rotate-1"
                 : i % 4 === 1

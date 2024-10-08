@@ -4,6 +4,7 @@
 import {
   decimal,
   jsonb,
+  pgEnum,
   pgTableCreator,
   text,
   timestamp
@@ -37,6 +38,8 @@ export const orders = createTable(
   }
 )
 
+export const userRole = pgEnum('role', ["user", "admin"]);
+
 export const users = createTable(
   "user",
   {
@@ -45,6 +48,7 @@ export const users = createTable(
     name: text("name").notNull(),
     password: text("password").notNull(),
     created_at: timestamp("created_at").defaultNow(),
+    role: userRole("role").default("user")
   }
 )
 

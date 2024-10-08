@@ -20,6 +20,7 @@ export default function OrderPage() {
     const [price, setPrice] = useState(BASE_PRICE)
     const [images, setImages] = useState<File[]>([])
     const [loading, setLoading] = useState(false)
+    const [progress, setProgress] = useState(0);
     const { toast } = useToast();
     const router = useRouter();
     const searchParams = useSearchParams();
@@ -27,7 +28,9 @@ export default function OrderPage() {
     const done = searchParams.get("done")
 
     const { startUpload, isUploading } = useUploadThing("imageUploader", {
-
+        onUploadProgress(p) {
+            setProgress(p)
+        },
     })
 
     const onSubmit = async (values: z.infer<typeof orderSchema>) => {
@@ -75,7 +78,7 @@ export default function OrderPage() {
     const calcImagePrice = () => {
         if (images && images?.length === 0) return 0
         const newImages = images.slice()
-        return (newImages.length || 1) * IMAGE_PRICE
+        return ((newImages.length || 1) * IMAGE_PRICE)- IMAGE_PRICE
     }
 
     const calcPrice = () => {
@@ -144,8 +147,8 @@ export default function OrderPage() {
                 >
 
                     <div className="grid gap-3">
-                        <Label>Bilder <span className="text-muted-foreground">(+{IMAGE_PRICE}kr för varje bild)</span></Label>
-                        <UploadButton setImages={setImages} images={images} />
+                        <Label>Bilder <span className="text-muted-foreground">(+{IMAGE_PRICE}kr för varje bild utoma 1:a)</span></Label>
+                        <UploadButton uploadProgres={progress} setImages={setImages} images={images} />
                     </div>
 
                     <div className="grid">

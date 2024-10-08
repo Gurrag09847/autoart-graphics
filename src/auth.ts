@@ -1,4 +1,4 @@
-import NextAuth, { AuthError } from "next-auth"
+import NextAuth, { AuthError, DefaultSession } from "next-auth"
 import Credentials from "next-auth/providers/credentials" 
 import { db } from "./server/db"
 import { eq } from "drizzle-orm"
@@ -9,6 +9,24 @@ import { CredentialsSignin } from "@auth/core/errors" // import is specific to y
 
 export class CustomError extends CredentialsSignin {
   code = "Error";
+}
+
+declare module "next-auth" {
+  /**
+   * Returned by `auth`, `useSession`, `getSession` and received as a prop on the `SessionProvider` React Context
+   */
+  interface Session {
+    user: {
+      /** The user's postal address. */
+      role: "admin" | "user"
+      /**
+       * By default, TypeScript merges new interface properties and overwrites existing ones.
+       * In this case, the default session user properties will be overwritten,
+       * with the new ones defined above. To keep the default session user properties,
+       * you need to add them back into the newly declared interface.
+       */
+    } & DefaultSession["user"]
+  }
 }
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
@@ -47,4 +65,17 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
     })
   ],
+  callbacks: {
+    session({ session, token, user }) {
+      const u = user as unknown as any
+      console.log(token)
+      return {
+        ...session,
+        user: {
+          ...session.user,
+          role: token.role,
+        },
+      }
+    }
+  }
 })
