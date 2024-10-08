@@ -37,6 +37,17 @@ export const orders = createTable(
   }
 )
 
+export const users = createTable(
+  "user",
+  {
+    id: text("id").primaryKey(),
+    email: text("email").notNull(),
+    name: text("name").notNull(),
+    password: text("password").notNull(),
+    created_at: timestamp("created_at").defaultNow(),
+  }
+)
+
 // export const posts = createTable(
 //   "post",
 //   {

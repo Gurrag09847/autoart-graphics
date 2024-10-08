@@ -53,6 +53,8 @@ export default function OrderPage() {
 
             await CreateOrder(values, nImages)
             setLoading(false)
+
+            router.push("/skapaorder?done=true")
         } catch (err) {
             toast({
                 title: "Hoppsan, någonting gick fel...",
@@ -61,8 +63,6 @@ export default function OrderPage() {
 
             })
             setLoading(false)
-        } finally {
-            router.push("/skapaorder?done=true")
         }
         setLoading(false)
 
