@@ -61,7 +61,7 @@ export function OrderTable<TData, TValue, isDrawerOpen>({
               <TableRow
                 key={row.id}
                 data-state={row.getIsSelected() && "selected"}
-                onClick={() => setOrder(data[Number(row.id)] as Order)}
+                // onClick={() => setOrder(data[Number(row.id)] as Order)}
               >
                 {row.getVisibleCells().map((cell) => (
                   <TableCell key={cell.id}>

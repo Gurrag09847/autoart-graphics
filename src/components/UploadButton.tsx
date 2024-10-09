@@ -81,7 +81,7 @@ export default function UploadButton({ setImages, images, uploadProgres }: { ima
                   //   </div>
 
                   // </div>
-                  <div className='w-full min-w-[235px] relative bg-white flex items-center rounded-md overflow-hidden outline outline-[1px] outline-zinc-200 divide-x divide-zinc-200'>
+                  <div key={i} className='w-full min-w-[235px] relative bg-white flex items-center rounded-md overflow-hidden outline outline-[1px] outline-zinc-200 divide-x divide-zinc-200'>
                     <div className='px-3 py-2 h-full grid place-items-center'>
                       <Image className='h-4 w-4 text-blue-500' />
                     </div>

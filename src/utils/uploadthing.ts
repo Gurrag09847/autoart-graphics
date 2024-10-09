@@ -4,6 +4,7 @@ import {
     generateUploadDropzone,
 
 } from "@uploadthing/react";
+import { UTApi } from "uploadthing/server";
 
 import type { OurFileRouter } from "~/app/api/uploadthing/core";
 

@@ -6,7 +6,7 @@ const Layout = async ({ children } : { children: React.ReactNode }) => {
 
     const session = await auth();
 
-    if (!session) return redirect("/")
+    if (!session) return redirect("/login")
     if (session.user.role === "user") return redirect("/login") 
 
   return (

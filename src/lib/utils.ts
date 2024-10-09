@@ -8,7 +8,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export const calcImagePrice = (images: Image[]) => {
+  console.log(images)
   if (images && images?.length === 0) return 0
-  const newImages = images.slice()
-  return (newImages.length || 1) * IMAGE_PRICE
+  return ((images.length) * IMAGE_PRICE) - IMAGE_PRICE
 }
